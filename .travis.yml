@@ -21,4 +21,4 @@ jobs:
         - npm ci
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - expo start
-        - npx expo publish --non-interactive
+        - npx expo publish --release-channel $TRAVIS_BUILD_NUMBER
