@@ -1,7 +1,9 @@
 {
+  "name": "BLT2",
+  "displayName": "BLT2 Project",
   "expo": {
-    "name": "myFirstProject",
-    "slug": "myFirstProject",
+    "name": "BLT2",
+    "slug": "BLT2",
     "platforms": [
       "ios",
       "android",
@@ -22,7 +24,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bhack.blt2",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.blt2.BLT2",
+      "versionCode": 1
+    },
+    "description": "Basic React Native app with Expo"
   }
 }
