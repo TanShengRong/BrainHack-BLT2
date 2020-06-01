@@ -1,3 +1,5 @@
+.expo/
+web-build/
 # Xcode
 !**/*.xcodeproj
 !**/*.pbxproj
