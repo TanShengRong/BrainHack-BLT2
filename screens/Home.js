@@ -1,5 +1,5 @@
 import React ,{useState}from 'react';
-import { View, Text, StyleSheet,FlatList, TouchableWithoutFeedback, Image,ScrollView, Keyboard } from 'react-native';
+import { View, Text, StyleSheet,FlatList, TouchableWithoutFeedback, Image,ScrollView, Keyboard,SafeAreaView } from 'react-native';
 import TodoItem from '../components/todoItem'
 import Header from '../components/header'
 import Addtodo from '../components/addtodo'
@@ -7,25 +7,25 @@ import SandBox from '../components/sandbox'
 //import { ScrollView } from 'react-native-gesture-handler';
 
 const Home = props => {
-     const [todos, settodos]=useState([
-        {text:'buy coffee', key:'1', urilink:'../assets/WoodlandsBatminton.png'},
-        {text:'create app', key:'2',urilink:'../assets/WoodlandsStadium.png'},
-        {text:'play on switch', key:'3',urilink:'../assets/WoodlandSwimmingComplex.png'},
+     const [gyms, setgyms]=useState([
+        {name:'Woodlands Batminton', key:'1', urilink:require('../assets/WoodlandsBatminton.png'),maxCapacity:10, currentOccupancy:8, bookings:8},
+        {name:'Woodlands Stadium', key:'2',urilink:require('../assets/WoodlandsStadium.png'),maxCapacity:30, currentOccupancy:4, bookings:8},
+        {name:'Woodlands Swimming Complex', key:'3',urilink:require('../assets/WoodlandSwimmingComplex.png'),maxCapacity:20, currentOccupancy:2, bookings:8},
       ])
     
       const pressHandler=(key)=>{
-        settodos((prevTodos)=>{
-          return prevTodos.filter(todos=>todos.key!=key);
+        setgyms((prevgyms)=>{
+          return prevgyms.filter(gyms=>gyms.key!=key);
         });
       }
     
       /*submits a new todo item*/
-      const submitHandler=(text)=>{
-        /* relies on prevTodos */
-        settodos((prevTodos)=>{
+      const submitHandler=(name)=>{
+        /* relies on prevgyms */
+        setgyms((prevgyms)=>{
           return[
-              {text:text, key:Math.random().toString(), urilink:"../assets/WoodlandsBatminton.png"},
-              ...prevTodos
+              {name:name, key:Math.random().toString(), urilink:require('../assets/WoodlandSwimmingComplex.png')},
+              ...prevgyms
             ];
         })
       }
@@ -40,35 +40,58 @@ const Home = props => {
         //     source={require("../assets/WoodlandsBatminton.png")}
         // />
         <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss}}>
-            
-            <ScrollView style={styles.container}>
-                <View style={styles.content}>
-                
-                 <View style={styles.content}>
+            <SafeAreaView style={styles.screen}>
+                <FlatList
+                showsHorizontalScrollIndicator={false}
+                data={gyms} /* pass gyms as the data for flat list*/
+                renderItem={({item})=>(/*item passed into the function needs to be deconstructed by curly braces*/
+                <TodoItem item={item} pressHandler={pressHandler} horizontal={false}/>
+                )}
+                ListHeaderComponent={
+                    <>
                     <Addtodo submitHandler={submitHandler}/>
+                    <Text style={{fontWeight:'bold'}}> 
+                        Currently Available
+                    </Text>
                     <View style={styles.listHorizontal}>
                          <FlatList
+                         showsHorizontalScrollIndicator={false}
                          horizontal={true}
-                         data={todos} /* pass todos as the data for flat list*/
+                         data={gyms} /* pass gyms as the data for flat list*/
                          renderItem={({item})=>(/*item passed into the function needs to be deconstructed by curly braces*/
                          <TodoItem item={item} pressHandler={pressHandler} horizontal={true}/>
                          )}
                          />
                      </View>
-                    <View style={styles.list}>
-                         <FlatList
-                         data={todos} /* pass todos as the data for flat list*/
-                         renderItem={({item})=>(/*item passed into the function needs to be deconstructed by curly braces*/
-                         <TodoItem item={item} pressHandler={pressHandler} horizontal={false}/>
-                         )}
-                         />
-                     </View>
-                 </View>
-                </View>
-
-            </ScrollView>  
+                     </>
+                }
+                />
+            </SafeAreaView>
+            
         </TouchableWithoutFeedback>
-        
+    //     <ScrollView style={styles.container}>
+    //     <View style={styles.content}>
+    //         <Addtodo submitHandler={submitHandler}/>
+    //         <View style={styles.listHorizontal}>
+    //              <FlatList
+    //              horizontal={true}
+    //              data={gyms} /* pass gyms as the data for flat list*/
+    //              renderItem={({item})=>(/*item passed into the function needs to be deconstructed by curly braces*/
+    //              <TodoItem item={item} pressHandler={pressHandler} horizontal={true}/>
+    //              )}
+    //              />
+    //          </View>
+    //         <View style={styles.list}>
+    //              <FlatList
+    //              data={gyms} /* pass gyms as the data for flat list*/
+    //              renderItem={({item})=>(/*item passed into the function needs to be deconstructed by curly braces*/
+    //              <TodoItem item={item} pressHandler={pressHandler} horizontal={false}/>
+    //              )}
+    //              />
+    //          </View>
+    //     </View>
+
+    // </ScrollView>  
         // <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss}}> 
         //     <View style={styles.container}>
         //         <View style={styles.screen}>
@@ -79,7 +102,7 @@ const Home = props => {
         //             <Addtodo submitHandler={submitHandler}/>
         //             <View style={styles.list}>
         //                 <FlatList
-        //                 data={todos} /* pass todos as the data for flat list*/
+        //                 data={gyms} /* pass gyms as the data for flat list*/
         //                 renderItem={({item})=>(/*item passed into the function needs to be deconstructed by curly braces*/
         //                 <TodoItem item={item} pressHandler={pressHandler}/>
         //                 )}
@@ -93,32 +116,15 @@ const Home = props => {
 
 const styles = StyleSheet.create({
     screen: {
+        paddingTop:40,
         padding:20,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex:1
     },
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        //alignItems: 'center',
-        //justifyContent: 'center',
-      },
-      content:{
-        flex: 1,
-        padding:10,
-        
-    
-      },
-      list:{
-        flex: 1,
-        marginTop:20,
 
-    
-      },
+     
       listHorizontal:{
         flex: 1,
-        marginLeft:20,
-        
+        marginBottom:20,
     
       },
     
