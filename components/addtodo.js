@@ -2,11 +2,11 @@ import React ,{useState}from 'react';
 import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
 export default function Addtodo({submitHandler}){
-    const [text,setText]=useState('');
+    const [name,setname]=useState('');
     
     /*OnChangeText Handler Automatically pass the value*/
     const changeHandler=(val)=>{
-        setText(val)
+        setname(val)
     }
     return(
         <View >
@@ -16,7 +16,7 @@ export default function Addtodo({submitHandler}){
                 onChangeText={changeHandler}
                 /*Note: onChangeText={(Val)=>{changeHandler(Val)}}*/ 
             />
-            <Button title="Add todo" color='coral' onPress={()=>submitHandler(text)}/>
+            <Button title="Add todo" color='coral' onPress={()=>submitHandler(name)}/>
         </View>
     )
 }
