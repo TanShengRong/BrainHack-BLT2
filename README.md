@@ -1,6 +1,6 @@
 # Basic-React-Native-Expo-App
 
-[![Build Status](https://travis-ci.org/LeonardisOne/Basic-React-Native-Expo-App.svg?branch=master)](https://travis-ci.org/LeonardisOne/Basic-React-Native-Expo-App)
+[![Build Status](https://travis-ci.org/TanShengRong/BrainHack-BLT2.svg?branch=master)](https://travis-ci.org/TanShengRong/BrainHack-BLT2.svg?branch=master)
 
 Try building with reference from https://docs.expo.io/distribution/building-standalone-apps/
 
