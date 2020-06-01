@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "JustLearn",
-    "slug": "JustLearn",
+    "name": "myFirstProject",
+    "slug": "myFirstProject",
     "platforms": [
       "ios",
       "android",
