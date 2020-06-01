@@ -5,6 +5,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import Welcome from './screens/Welcome'
 import Login from './screens/Login';
 import Color from './constants/color';
+import Card from './screens/Card';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -63,6 +64,7 @@ export default function App() {
   if (showRealApp) {
     return <MainStack />;
   } else {
+    // return <Card />;
     return <AppIntroSlider renderItem={renderSlide} data={slides} onDone={onFinish} />;
   }
 }
