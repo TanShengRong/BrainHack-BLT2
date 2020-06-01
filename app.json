@@ -1,7 +1,9 @@
 {
+  "name": "DoneWithIt",
+  "displayName": "DoneWithIt",
   "expo": {
-    "name": "myFirstProject",
-    "slug": "myFirstProject",
+    "name": "DoneWithIt",
+    "slug": "DoneWithIt",
     "platforms": [
       "ios",
       "android",
@@ -22,7 +24,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bhack.blt2",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.blt2.DoneWithIt",
+      "versionCode": 1
+    },
+    "description": "Basic React Native app with Expo"
   }
 }
