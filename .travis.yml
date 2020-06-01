@@ -1,9 +1,5 @@
 language: java
 
-branches:
-  only:
-    - master
-
 env:
   global:
     - EXPO_SDK_VERSION="37.0.0"
