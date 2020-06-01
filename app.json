@@ -1,7 +1,9 @@
 {
+  "name": "CrowdControl",
+  "displayName": "CrowdControl",
   "expo": {
-    "name": "JustLearn",
-    "slug": "JustLearn",
+    "name": "CrowdControl",
+    "slug": "CrowdControl",
     "platforms": [
       "ios",
       "android",
@@ -22,7 +24,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bhack.blt2",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.blt2.CrowdControl",
+      "versionCode": 1
+    },
+    "description": "Basic React Native app with Expo on CrowdControl"
   }
 }
