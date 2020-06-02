@@ -8,6 +8,9 @@ import Color from './constants/color';
 import Card from './screens/Card';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Details from './screens/Details'
+import JoinPanel from './components/JoinPanel'
+import Test from './screens/Test'
 
 // temporary
 var isLoggedIn = false;
@@ -64,7 +67,7 @@ export default function App() {
   if (showRealApp) {
     return <MainStack />;
   } else {
-    return <Card />;
+    return <Details />;
     // return <AppIntroSlider renderItem={renderSlide} data={slides} onDone={onFinish} />;
   }
 }

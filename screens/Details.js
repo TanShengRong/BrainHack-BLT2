@@ -2,11 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import { useHeaderHeight } from '@react-navigation/stack';
+import JoinPanel from '../components/JoinPanel'
 import Color from '../constants/color';
 const MIN_HEIGHT = 0;
 const MAX_HEIGHT = 200;
 
-const Details = props => {
+const Details = ({ navigation }) => {
 
 
     return (
@@ -30,17 +31,16 @@ const Details = props => {
                     <View>
                     </View>
                     <View style={[{ paddingTop: 80, }, styles.section]}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 25 }}>GymBoxx JEM</Text>
-                        <Text style={{ paddingVertical: 5 }}>Location: JEM, Jurong East, #03-12</Text>
-                        <Text>Operating Hours: 9AM - 10PM</Text>
+                        <Text style={[styles.sectionHeader, { fontSize: 35 }]}>GymBoxx JEM</Text>
+                        <Text style={styles.sectiontext}>Location: JEM, Jurong East, #03-12</Text>
+                        <Text style={styles.sectiontext}>Operating Hours: 9AM - 10PM</Text>
+                    </View>
+                    <View style={styles.section}>
+                        <Text style={styles.sectionHeader}>Available Days</Text>
                     </View>
                 </View>
             </ HeaderImageScrollView>
-            <View style={styles.bottom}>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Welcome')}>
-                    <Text style={{ color: 'white', fontWeight: '700' }}>JOIN QUEUE</Text>
-                </TouchableOpacity>
-            </View>
+            <JoinPanel />
         </View >
     )
 };
@@ -49,6 +49,14 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         backgroundColor: 'white'
+    },
+    sectionHeader: {
+        fontWeight: 'bold',
+        fontSize: 25,
+        paddingBottom: 8
+    },
+    sectiontext: {
+        paddingBottom: 5
     },
     image: {
         height: MAX_HEIGHT,

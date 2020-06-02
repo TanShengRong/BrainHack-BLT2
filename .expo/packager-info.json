@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 14282,
-  "expoServerNgrokUrl": "https://qd-pxi.anonymous.brainhack-blt2.exp.direct",
-  "packagerNgrokUrl": "https://packager.qd-pxi.anonymous.brainhack-blt2.exp.direct",
-  "ngrokPid": 14301,
+  "packagerPort": 19003,
+  "packagerPid": 26308,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
