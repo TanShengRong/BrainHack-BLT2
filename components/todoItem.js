@@ -36,8 +36,12 @@ export default function TodoItem({item, pressHandler, horizontal}){
                         source={item.urilink}
                     />
 
-                   
-                    <Text style={styles.item}>{item.name}</Text>
+                    <View style={styles.item}>
+                        <Text >{item.name}</Text>
+                        <Text >{item.operatingHrs}</Text>
+                        <Text>Occupancy:{item.currentOccupancy}/{item.maxCapacity}</Text>    
+                    </View>
+
                 </View>
 
             </TouchableOpacity>

@@ -8,9 +8,10 @@ import SandBox from '../components/sandbox'
 
 const Home = props => {
      const [gyms, setgyms]=useState([
-        {name:'Woodlands Batminton', key:'1', urilink:require('../assets/WoodlandsBatminton.png'),maxCapacity:10, currentOccupancy:8, bookings:8},
-        {name:'Woodlands Stadium', key:'2',urilink:require('../assets/WoodlandsStadium.png'),maxCapacity:30, currentOccupancy:4, bookings:8},
-        {name:'Woodlands Swimming Complex', key:'3',urilink:require('../assets/WoodlandSwimmingComplex.png'),maxCapacity:20, currentOccupancy:2, bookings:8},
+        {name:'Woodlands Batminton', key:'1', urilink:require('../assets/WoodlandsBatminton.png'),
+        maxCapacity:10, currentOccupancy:8, bookings:8, operatingHrs:'9am-8pm'},
+        {name:'Woodlands Stadium', key:'2',urilink:require('../assets/WoodlandsStadium.png'),maxCapacity:30, currentOccupancy:4, bookings:8, operatingHrs:'9am-9pm'},
+        {name:'Woodlands Swimming Complex', key:'3',urilink:require('../assets/WoodlandSwimmingComplex.png'),maxCapacity:20, currentOccupancy:2, bookings:8, operatingHrs:'9am-5pm'},
       ])
     
       const pressHandler=(key)=>{
