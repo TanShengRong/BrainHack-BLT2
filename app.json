@@ -25,11 +25,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.blt2.safe_exercise",
+      "bundleIdentifier": "com.blt2.safeExercise",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.blt2.safe_exercise",
+      "package": "com.blt2.safeExercise",
       "versionCode": 1
     },
     "description": "Safe Exercise app for Gyms and Stadiums "
