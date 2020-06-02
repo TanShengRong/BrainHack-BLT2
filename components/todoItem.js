@@ -101,7 +101,6 @@ const styles=StyleSheet.create({
         borderBottomLeftRadius:30,
         //resizeMode: 'stretch'
       },
-
       
 
 })

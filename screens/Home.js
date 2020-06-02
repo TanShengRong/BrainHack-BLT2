@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
       listHorizontal:{
         flex: 1,
         marginBottom:20,
-    
       },
     
 });

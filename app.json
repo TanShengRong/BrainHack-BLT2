@@ -1,9 +1,9 @@
 {
-  "name": "DoneWithIt",
-  "displayName": "DoneWithIt",
+  "name": "safe_exercise",
+  "displayName": "Safe Exercise",
   "expo": {
-    "name": "DoneWithIt",
-    "slug": "DoneWithIt",
+    "name": "safe_exercise",
+    "slug": "safe_exercise",
     "platforms": [
       "ios",
       "android",
@@ -25,13 +25,13 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bhack.blt2",
+      "bundleIdentifier": "com.blt2.safeExercise",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.blt2.DoneWithIt",
+      "package": "com.blt2.safeExercise",
       "versionCode": 1
     },
-    "description": "Basic React Native app with Expo"
+    "description": "Safe Exercise app for Gyms and Stadiums "
   }
 }
