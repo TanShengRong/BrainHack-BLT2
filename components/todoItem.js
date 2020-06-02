@@ -1,37 +1,49 @@
 import React from 'react';
-import { StyleSheet, Text, View,Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,Image, TouchableOpacity, Dimensions} from 'react-native';
+
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
 
 export default function TodoItem({item, pressHandler, horizontal}){
     if (horizontal==true) {
         return(
             <TouchableOpacity onPress={()=>pressHandler(item.key)}>
-                <Image
-                    style={{
+                <View>
+                    <Image
+                        style={{
                         margin:10,
                         marginBottom:0,
-                        width: 100,
-                        height: 50}}
-                    resizeMode='cover'
-                    source={require("../assets/WoodlandsBatminton.png")}
-                />
-                {/* <Image
-                     style={styles.tinyLogo2}
-                     resizeMode='contain'
-                    source={require('../assets/WoodlandsStadium.png')}
-                /> */}
-                <Text style={styles.itemHorizontal}>left</Text>
+                        width: screenWidth/3,
+                        height: screenWidth/3,
+                        borderTopLeftRadius:10,
+                        borderTopRightRadius:10,}}
+                        resizeMode='cover' 
+                        source={item.urilink}
+                    />
+                </View>
+
+                <Text style={styles.itemHorizontal}>{item.name}</Text>
             </TouchableOpacity>
             
         );
     }else{
         return(
             <TouchableOpacity onPress={()=>pressHandler(item.key)}>
-                <Image
-                     style={styles.tinyLogo}
-                     resizeMode='contain'
-                    source={require('../assets/splash.png')}
-                />
-                <Text style={styles.item}>{item.text}</Text>
+                <View style={styles.containter}>
+                    <Image
+                        style={styles.tinyLogo}
+                        resizeMode='cover'
+                        source={item.urilink}
+                    />
+
+                    <View style={styles.item}>
+                        <Text >{item.name}</Text>
+                        <Text >{item.operatingHrs}</Text>
+                        <Text>Occupancy:{item.currentOccupancy}/{item.maxCapacity}</Text>    
+                    </View>
+
+                </View>
+
             </TouchableOpacity>
         );
     }
@@ -39,44 +51,56 @@ export default function TodoItem({item, pressHandler, horizontal}){
     
     // return(
     //     <TouchableOpacity onPress={()=>pressHandler(item.key)}>
-    //         <Text style={styles.item}>{item.text}</Text>
+    //         <Text style={styles.item}>{item.name}</Text>
     //     </TouchableOpacity>
     // )
 
 }
 
 const styles=StyleSheet.create({
+    containter:{
+        //backgroundColor:'skyblue',
+        //borderColor:'red',
+        //borderWidth:1,
+        margin:5,
+        justifyContent:'flex-start',
+        alignItems:'center',
+        flexDirection:'row',
+
+    },
+
     item:{
+        flex:1,
         padding:16,
-        
         borderColor:'#bbb',
         borderWidth:1,
-        borderStyle:'dashed',
-        borderRadius:10
+        borderTopRightRadius:30,
+        borderBottomRightRadius:30,
+        height:screenHeight/6,
 
     },
     itemHorizontal:{
-        padding:16,
+        height: screenWidth/8,
+        paddingBottom:16,
+        paddingLeft:2,
         marginHorizontal:8,
         borderColor:'#bbb',
         borderWidth:1,
-        borderStyle:'dashed',
-        borderRadius:10
+        borderBottomRightRadius:10,
+        borderBottomLeftRadius:10,
+        fontSize: 9,
+        fontWeight: "bold",
 
     },
     tinyLogo: {
-        flex:1,
-        width: 60,
-        height: 60,
-        marginTop:10,
-        backgroundColor:'coral'
+        height:screenHeight/6 ,
+        width: screenHeight/6,
+        borderWidth:1,
+        borderColor:'#bbb',
+        borderTopLeftRadius:30,
+        borderBottomLeftRadius:30,
         //resizeMode: 'stretch'
       },
-    tinyLogo2: {
-        width: 100,
-        height: 200,
-        
-    }
       
 
 })
