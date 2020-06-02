@@ -4,6 +4,7 @@ import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header
 import { useHeaderHeight } from '@react-navigation/stack';
 import JoinPanel from '../components/JoinPanel'
 import Color from '../constants/color';
+import Slider from '../components/Slider'
 const MIN_HEIGHT = 0;
 const MAX_HEIGHT = 200;
 
@@ -37,6 +38,7 @@ const Details = ({ navigation }) => {
                     </View>
                     <View style={styles.section}>
                         <Text style={styles.sectionHeader}>Available Days</Text>
+                        <Slider />
                     </View>
                 </View>
             </ HeaderImageScrollView>

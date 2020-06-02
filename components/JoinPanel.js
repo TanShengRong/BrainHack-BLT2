@@ -50,7 +50,7 @@ export default class JoinPanel extends React.Component {
 
     renderInner = () => (
         <View style={styles.panel}>
-            <TouchableOpacity style={styles.panelButton} onPress={this.toggleBtn}>
+            <TouchableOpacity style={[styles.panelButton, styles.shadow]} onPress={this.toggleBtn}>
                 <Text style={{ color: 'white', fontWeight: '700' }}>{this.state.button}</Text>
             </TouchableOpacity>
             <View style={styles.warning}>
@@ -159,5 +159,14 @@ const styles = StyleSheet.create({
     map: {
         height: '100%',
         width: '100%',
+    },
+    shadow: {
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 4
     },
 })
