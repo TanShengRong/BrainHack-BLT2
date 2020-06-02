@@ -64,8 +64,8 @@ export default function App() {
   if (showRealApp) {
     return <MainStack />;
   } else {
-    // return <Card />;
-    return <AppIntroSlider renderItem={renderSlide} data={slides} onDone={onFinish} />;
+    return <Card />;
+    // return <AppIntroSlider renderItem={renderSlide} data={slides} onDone={onFinish} />;
   }
 }
 

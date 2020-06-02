@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import { useHeaderHeight } from '@react-navigation/stack';
 import Color from '../constants/color';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 const MIN_HEIGHT = 0;
 const MAX_HEIGHT = 200;
 
@@ -20,24 +19,36 @@ const Details = props => {
                 fadeOutForeground
                 renderHeader={() => <Image source={require('../assets/gymboxx.jpg')} style={styles.image} />}
             >
-                <View style={{ height: 1000 }}>
+                <View style={{ height: 700 }}>
                     <TriggeringView>
                         <View style={[styles.card, styles.shadow]} >
-                            <Text style={{ fontWeight: 'bold', fontSize: 25 }}>Capacity: 24/24</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 25 }}>Capacity: 100%</Text>
                             <Text style={{ color: Color.secondary, paddingVertical: 5 }}>Queue Count: 3</Text>
-                            <Text style={{ fontStyle: 'italic' }}>Estimated waiting time: 1-2 hours</Text>
+                            <Text style={{ color: Color.secondary }}>Estimated waiting time: 1 hour</Text>
                         </View>
                     </TriggeringView>
+                    <View>
+                    </View>
+                    <View style={[{ paddingTop: 80, }, styles.section]}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 25 }}>GymBoxx JEM</Text>
+                        <Text style={{ paddingVertical: 5 }}>Location: JEM, Jurong East, #03-12</Text>
+                        <Text>Operating Hours: 9AM - 10PM</Text>
+                    </View>
                 </View>
             </ HeaderImageScrollView>
-        </View>
+            <View style={styles.bottom}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Welcome')}>
+                    <Text style={{ color: 'white', fontWeight: '700' }}>JOIN QUEUE</Text>
+                </TouchableOpacity>
+            </View>
+        </View >
     )
 };
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: Color.primary
+        backgroundColor: 'white'
     },
     image: {
         height: MAX_HEIGHT,
@@ -66,6 +77,23 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.1,
         shadowRadius: 4
+    },
+    section: {
+        marginHorizontal: 40,
+        borderBottomWidth: 1,
+        borderBottomColor: '#cccccc',
+        paddingVertical: 20
+    },
+    bottom: {
+        paddingVertical: 30,
+    },
+    button: {
+        marginHorizontal: 50,
+        backgroundColor: Color.primary,
+        borderRadius: 12,
+        height: 52,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 
