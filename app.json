@@ -1,9 +1,9 @@
 {
-  "name": "Safe Exercise",
+  "name": "safe_exercise",
   "displayName": "Safe Exercise",
   "expo": {
-    "name": "Safe Exercise",
-    "slug": "Safe Exercise",
+    "name": "safe_exercise",
+    "slug": "safe_exercise",
     "platforms": [
       "ios",
       "android",
@@ -25,11 +25,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.blt2.Safe-Exercise",
+      "bundleIdentifier": "com.blt2.safe_exercise",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.blt2.Safe-Exercise",
+      "package": "com.blt2.safe_exercise",
       "versionCode": 1
     },
     "description": "Safe Exercise app for Gyms and Stadiums "
