@@ -46,7 +46,7 @@ const Slider = props => {
     const _renderItem = ({ item, index }) => {
         return (
             <TouchableOpacity
-                activeOpacity="0.6"
+                activeOpacity={0.6}
             // onPress={()=> props.getDay()}
             >
                 <View style={[styles.slide, styles.shadow]}>

@@ -5,16 +5,31 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home';
 import About from './About';
 import SafeEntry from "./SafeEntry";
+import { createStackNavigator } from '@react-navigation/stack';
+import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
+import Details from './Details';
 
 const Tab = createBottomTabNavigator();
 
+const Stack = createStackNavigator();
+
 export default function Welcome() {
+
+    const TabStack = () => {
+        return (
+            <Tab.Navigator>
+                <Tab.Screen name="Home" component={Home} />
+                <Tab.Screen name="About" component={About} />
+                <Tab.Screen name="Safe Entry" component={SafeEntry} />
+            </Tab.Navigator>
+        )
+    }
+
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="About" component={About} />
-            <Tab.Screen name="Safe Entry" component={SafeEntry} />
-        </Tab.Navigator>
+        <Stack.Navigator>
+            <Stack.Screen name="Home" component={TabStack} />
+            <Stack.Screen name="Details" component={Details} />
+        </Stack.Navigator>
     );
 }
 

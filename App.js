@@ -13,6 +13,7 @@ import JoinPanel from './components/JoinPanel'
 import Test from './screens/Test'
 import Amplify from "aws-amplify";
 import aws_exports from "./config/aws-exports";
+import SafeEntry from './screens/SafeEntry'
 
 Amplify.configure(aws_exports);
 
