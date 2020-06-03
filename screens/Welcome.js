@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home';
-import About from './About';
+import Map from './Map';
 import SafeEntry from "./SafeEntry";
 import { createStackNavigator } from '@react-navigation/stack';
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
@@ -19,7 +19,7 @@ export default function Welcome() {
         return (
             <Tab.Navigator>
                 <Tab.Screen name="Home" component={Home} />
-                <Tab.Screen name="About" component={About} />
+                <Tab.Screen name="Map" component={Map} />
                 <Tab.Screen name="Safe Entry" component={SafeEntry} />
             </Tab.Navigator>
         )

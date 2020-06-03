@@ -81,7 +81,6 @@ const Details = ({ route }) => {
             .then((json) => setBookings(json.items))
             .catch((error) => console.error(error))
         //   .finally(() => setLoading(false));
-        console.log("Fetched details")
     }, [refreshing]);
 
     async function postData(url, data) {
@@ -105,7 +104,6 @@ const Details = ({ route }) => {
 
         postData(url, post)
             .then(data => {
-                console.log(data.json())
                 let title = data.ok ? "Success" : "Fail to submit"
                 let msg = data.ok ? "Your booking has been submitted." : "Check if you have already signed up for this timeslot."
                 Alert.alert(
@@ -161,7 +159,6 @@ const Details = ({ route }) => {
 
 
     const clickDay = (day) => {
-        console.log(day)
         setDay(day)
         let hrs = getNumberOfHours(bookings)
         renderTimeslot(bookings.slice(hrs * day, hrs * (day + 1)))
