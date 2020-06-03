@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 // import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Welcome from './screens/Welcome'
@@ -23,18 +23,18 @@ var isLoggedIn = false;
 const slides = [
   {
     key: "1",
-    title: "First Slide",
-    text: "Here's the first slide.",
+    img: require("./assets/running.png"),
+    text: "Welcome to Safe Exercise.",
   },
   {
     key: "2",
-    title: "Second Slide",
-    text: "Here's the 2nd slide.",
+    img: require("./assets/muscle.png"),
+    text: "We know you've been waiting to go out to your favourite gyms and pools.",
   },
   {
     key: "3",
-    title: "Slide Three",
-    text: "Here's the third slide.",
+    img: require("./assets/woman.png"),
+    text: "Here's where you can check and book time slots!",
   },
 ];
 
@@ -44,7 +44,7 @@ export default function App() {
   const renderSlide = ({ item }) => {
     return (
       <View style={styles.slide}>
-        <Text style={styles.title}>{item.title}</Text>
+        <Image source={item.img} resizeMode='center' />
         <Text style={styles.desc}>{item.text}</Text>
       </View>
     );

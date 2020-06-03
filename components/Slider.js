@@ -3,57 +3,56 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import Color from '../constants/color';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import moment from 'moment';
+
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.6);
 const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 0.6);
 
+const getDateAndDay = (dt) => {
+    // Format: 2020-06-04 1000
+    let date = new Date(dt.slice(0, 10))
+    date = moment(date).format('MMM,D,dddd')
+    let ar = date.split(',')
+    let res = {}
+    res.day = ar[1]
+    res.month = ar[0]
+    res.dayName = ar[2]
+    return res
+}
+
+const getNumberOfHours = (data) => {
+    let res = data.length / 7
+    return res
+}
+
 
 const Slider = props => {
-    const entries = [
-        {
-            id: 1,
-            name: 'Monday'
-        },
-        {
-            id: 2,
-            name: 'Tuesday'
-        },
-        {
-            id: 3,
-            name: 'Wednesday'
-        },
-        {
-            id: 4,
-            name: 'Thursday'
-        },
-        {
-            id: 5,
-            name: 'Friday'
-        },
-        {
-            id: 6,
-            name: 'Saturday'
-        },
-        {
-            id: 7,
-            name: 'Sunday'
-        }
-    ];
+
+    var entries = []
+    let k = 0
+
+    for (let i = 0; i < props.futureData.length; i += getNumberOfHours(props.futureData)) {
+        let r = getDateAndDay(props.futureData[i]['dateTimeSlot'])
+        r.key = k
+        k = k + 1
+        entries.push(r)
+    }
 
     const [card, setCard] = useState();
 
-    const _renderItem = ({ item, index }) => {
+    const _renderItem = ({ item }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.6}
-            // onPress={()=> props.getDay()}
+                onPress={() => props.onclick(item.key)}
             >
                 <View style={[styles.slide, styles.shadow]}>
-                    <Text style={[styles.text, { paddingTop: 20, fontSize: 20 }]} >Mar</Text>
-                    <Text style={[styles.text, { paddingTop: 15, fontSize: 25 }]}>9</Text>
+                    <Text style={[styles.text, { paddingTop: 20, fontSize: 20 }]} >{item.month}</Text>
+                    <Text style={[styles.text, { paddingTop: 15, fontSize: 25 }]}>{item.day}</Text>
                     <View style={{ paddingTop: 30 }}>
-                        <Text style={styles.text}>{item.name}</Text>
+                        <Text style={styles.text}>{item.dayName}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

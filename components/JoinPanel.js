@@ -16,6 +16,13 @@ export default class JoinPanel extends React.Component {
         }
     }
 
+    handleClick = () => {
+        this.toggleBtn()
+        if (this.state.button == 'CONFIRM') {
+            this.props.onclick()
+        }
+    }
+
     state = {
         button: 'JOIN',
         hideBtn: this.props.isDisabled
@@ -31,9 +38,6 @@ export default class JoinPanel extends React.Component {
         }
     }
 
-    method = () => this.bs.current.snapTo(3)
-
-
     _renderItem = ({ item }) => {
         <View>
             <Text>{item.title}</Text>
@@ -48,7 +52,7 @@ export default class JoinPanel extends React.Component {
         <View style={styles.panel}>
             <TouchableOpacity
                 style={[styles.panelButton, styles.shadow]}
-                onPress={this.toggleBtn}>
+                onPress={this.handleClick}>
                 <Text style={{ color: 'white', fontWeight: '700' }}>{this.state.button}</Text>
             </TouchableOpacity>
             <View style={styles.warning}>
