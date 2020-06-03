@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 // import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Welcome from './screens/Welcome'
@@ -11,45 +11,47 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Details from './screens/Details'
 import JoinPanel from './components/JoinPanel'
 import Test from './screens/Test'
+import Amplify from "aws-amplify";
+import aws_exports from "./config/aws-exports";
+
+Amplify.configure(aws_exports);
 
 // temporary
 var isLoggedIn = false;
 
 const slides = [
   {
-    key: '1',
-    title: 'First Slide',
-    text: "Here's the first slide."
+    key: "1",
+    title: "First Slide",
+    text: "Here's the first slide.",
   },
   {
-    key: '2',
-    title: 'Second Slide',
-    text: "Here's the 2nd slide."
+    key: "2",
+    title: "Second Slide",
+    text: "Here's the 2nd slide.",
   },
   {
-    key: '3',
-    title: 'Slide Three',
-    text: "Here's the third slide."
-  }
-]
+    key: "3",
+    title: "Slide Three",
+    text: "Here's the third slide.",
+  },
+];
 
 export default function App() {
-
   const [showRealApp, setShowRealApp] = useState(false);
 
   const renderSlide = ({ item }) => {
-
     return (
       <View style={styles.slide}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.desc}>{item.text}</Text>
       </View>
-    )
-  }
+    );
+  };
 
   const onFinish = () => {
     setShowRealApp(true);
-  }
+  };
 
   const Stack = createStackNavigator();
 
@@ -59,16 +61,22 @@ export default function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Safe Entry" component={SafeEntry} />
         </Stack.Navigator>
       </NavigationContainer>
-    )
-  }
+    );
+  };
 
   if (showRealApp) {
     return <MainStack />;
   } else {
-    return <Details />;
-    // return <AppIntroSlider renderItem={renderSlide} data={slides} onDone={onFinish} />;
+    return (
+      <AppIntroSlider
+        renderItem={renderSlide}
+        data={slides}
+        onDone={onFinish}
+      />
+    );
   }
 }
 
@@ -76,17 +84,13 @@ const styles = StyleSheet.create({
   slide: {
     flex: 1,
     backgroundColor: Color.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
   },
   desc: {
-    fontSize: 15
+    fontSize: 15,
   },
-
-
-
 });
-

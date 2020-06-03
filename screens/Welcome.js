@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home';
 import About from './About';
+import SafeEntry from "./SafeEntry";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,7 @@ export default function Welcome() {
         <Tab.Navigator>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="About" component={About} />
+            <Tab.Screen name="Safe Entry" component={SafeEntry} />
         </Tab.Navigator>
     );
 }
