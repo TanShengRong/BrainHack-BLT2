@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import Welcome from "./screens/Welcome";
 import Login from "./screens/Login";
+import SafeEntry from "./screens/SafeEntry";
 import Color from "./constants/color";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -57,6 +58,7 @@ export default function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Safe Entry" component={SafeEntry} />
         </Stack.Navigator>
       </NavigationContainer>
     );
