@@ -24,17 +24,17 @@ const slides = [
   {
     key: "1",
     img: require("./assets/running.png"),
-    text: "Welcome to Safe Exercise.",
+    text: "Welcome to Safe Exercise!",
   },
   {
     key: "2",
     img: require("./assets/muscle.png"),
-    text: "We know you've been waiting to go out to your favourite gyms and pools.",
+    text: "We know you've been waiting to go out to your favourite gyms and pools...",
   },
   {
     key: "3",
     img: require("./assets/woman.png"),
-    text: "Here's where you can check and book time slots!",
+    text: "Come check it out and book time slots!",
   },
 ];
 
@@ -87,11 +87,10 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
     alignItems: "center",
     justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
+    paddingHorizontal: 50
   },
   desc: {
-    fontSize: 15,
+    fontSize: 25,
+    fontWeight: '600'
   },
 });
