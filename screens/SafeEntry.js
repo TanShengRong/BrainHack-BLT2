@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ColorPropType,Alert,TextInput,Button,Keyboard, 
 import { WebView } from 'react-native-webview';
 import Color from '../constants/color';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-
 export default function SafeEntry({}){
     const [text,setText]=useState('PPUSH MEEEE');
     const [hasPermission, setHasPermission] = useState(null);
@@ -36,7 +35,7 @@ export default function SafeEntry({}){
     
       const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        alert("Notice",`Do not click Save this page. ${data} has been scanned!`);
         setText(`${data}`);
       };
 
