@@ -11,10 +11,10 @@ import {
 
 import MapView, { Marker, ProviderPropType } from 'react-native-maps';
 import SandBoxTwo from '../components/sandboxtwo'
-import { getLocationDefaults } from '../components/apifunctions'
-import { API } from 'aws-amplify';
+import { getLocationDefaults, getLocationByRegion } from '../components/apifunctions'
+// import { API } from 'aws-amplify';
 //tmp to prevent warnings
-// console.disableYellowBox = true;
+console.disableYellowBox = true;
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -38,103 +38,43 @@ class CustomMarkers extends React.Component {
         latitudeDelta: 0.6022,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      items: []
-    //   markers: [
-    //     {
-    //         coordinate: {
-    //         latitude: 1.367240,
-    //         longitude: 103.840420,
-    //         },
-    //         key: id++,
-    //         title: 'YCK Gym',
-    //         description: 'Crowd level is HIGH',
-    //     },
-    //     {
-    //         coordinate: {
-    //             latitude: 1.382342,
-    //             longitude: 103.846085,
-    //         },
-    //         key: id++,
-    //         title: 'AMK Gym',
-    //         description: 'Crowd level is LOW',
-    //     },
-    //     {
-    //         coordinate: {
-    //             latitude: 1.352128,
-    //             longitude: 103.872122,
-    //         },
-    //         key: id++,
-    //         title: 'Serangoon Gym',
-    //         description: 'Crowd level is HIGH',
-    //     },
-    //     {
-    //         coordinate: {
-    //             latitude: 1.355957,
-    //             longitude: 103.874901,
-    //         },
-    //         key: id++,
-    //         title: 'Serangoon Stadium',
-    //         description: 'Crowd level is LOW',
-    //     },
-    //   ],
+      items: [],
     };
   }
 
   async componentDidMount() {
     console.log('Component did mount');
     const APIDATA = await getLocationDefaults();
-    console.log(typeof(APIDATA) === 'object');
-    console.log(APIDATA.items[0]);
-    this.setState({ items: APIDATA.items });
+    // console.log(typeof(APIDATA) === 'object');
+    // console.log(APIDATA.items[0]);
+
+    this.setState({ items: APIDATA.items });    
   }
-  animateRandom(reg) {
-    this.map.animateToRegion(this.randomRegion(reg));
-  }
-  randomRegion(reg) {
-    return {
-      ...this.state.region,
-      ...this.randomCoordinate(reg),
-    };
-  }
-  randomCoordinate(reg) {
-    const region = this.state.region;
-    let lat = 0, long=0;
-    switch (reg) {
-        case 'amk':
-            lat = 1.382342;
-            long = 103.846085;
-            break;
-        case 'sr': 
-            lat = 1.352128;
-            long = 103.872122;
-            break;
+
+  async updateMarkers(reg) {
+    // const APIDATA = await getLocationByRegion(reg);
+    if (reg === 'reset') {
+      const APIDATA = await getLocationDefaults();
+      this.setState({ items: APIDATA.items });    
     }
-    return {
-      latitude:
-        // region.latitude + (Math.random() - 0.5) * (region.latitudeDelta / 2),
-        lat,
-      longitude:
-        // region.longitude + (Math.random() - 0.5) * (region.longitudeDelta / 2),
-        long,
-    latitudeDelta: 
-        LATITUDE_DELTA,
-    longitudeDelta: 
-        LONGITUDE_DELTA,
-    };
-  }
-    mapMarkers = () => {
-    return this.state.items.map(item => (
-        <Marker
-          title={item.name}
-          key={item.locationId}
-          coordinate={{
-            latitude: parseFloat(item.lat),
-            longitude: parseFloat(item.lon)
-          }}
-          description={item.address}
-        />
-      ))
+    else {
+      const APIDATA = await getLocationByRegion(reg);
+      this.setState({ items: APIDATA.items });
     }
+  }
+  mapMarkers = () => {
+  return this.state.items.map(item => (
+      <Marker
+        title={item.name}
+        key={item.locationId}
+        coordinate={{
+          latitude: parseFloat(item.lat),
+          longitude: parseFloat(item.lon)
+        }}
+        description={item.address}
+      />
+    ))
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -155,31 +95,52 @@ class CustomMarkers extends React.Component {
         <View style={styles.buttonContainer}>
           <SandBoxTwo/>
         </View>
+        <View style={styles.filterContainer}>
+
+        <TouchableOpacity
+            onPress={() => this.updateMarkers('reset')}
+            style={[styles.bubble, styles.resetButton]}
+          >
+            <Text style={styles.resetButtonText}>R</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => this.updateMarkers('north')}
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>North</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => this.updateMarkers('south')}
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>South</Text>
+          </TouchableOpacity> 
+
+          <TouchableOpacity
+            onPress={() => this.updateMarkers('central')}
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>Central</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => this.updateMarkers('east')}
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>East</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => this.updateMarkers('west')}
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>West</Text>
+          </TouchableOpacity>
+
+        </View>
       </View>
-        // {/* <View style={styles.buttonContainer}> */}
-        //   {/* <SandBoxTwo/> */}
-        //   {/* <Text>HELLLLLLLLOOOOOOO</Text> */}
-
-        //   {/* <TouchableOpacity
-        //     onPress={() => this.setState({ markers: [] })}
-        //     style={styles.bubble}
-        //   >
-        //     <Text>Tap refresh current location</Text>
-        //   </TouchableOpacity> */}
-
-        //   {/* <TouchableOpacity
-        //     onPress={() => this.animateRandom('amk')}
-        //     style={[styles.bubble, styles.button]}
-        //   >
-        //     <Text style={styles.buttonText}>North Region</Text>
-        //   </TouchableOpacity>
-
-        //   <TouchableOpacity
-        //     onPress={() => this.animateRandom('sr')}
-        //     style={[styles.bubble, styles.button]}
-        //   >
-        //     <Text style={styles.buttonText}>South Region</Text>
-        //   </TouchableOpacity> */}
     );
   }
 }
@@ -210,17 +171,22 @@ const styles = StyleSheet.create({
     width: 200,
     alignItems: 'stretch',
   },
-  button: {
-    width: 80,
+  resetButton: {
+    width: 40,
     paddingHorizontal: 12,
     alignItems: 'center',
-    marginHorizontal: 10,
+    backgroundColor: 'white'
   },
-//   buttonContainer: {
-//     flexDirection: 'row',
-//     marginVertical: 20,
-//     backgroundColor: 'transparent',
-//   },
+  resetButtonText: {
+    color: 'red',
+    textAlign: 'center',
+  },
+  button: {
+    width: 70,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    backgroundColor: 'white'
+  },
   buttonContainer: {
     flexDirection: 'row',
     backgroundColor: 'transparent',
@@ -229,6 +195,11 @@ const styles = StyleSheet.create({
     flex:1,
     borderWidth:3,
     borderColor:'transparent'
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    flex:0.25,
   },
   overlayComponent: {
     position: "absolute",
