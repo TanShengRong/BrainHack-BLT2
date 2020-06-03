@@ -5,8 +5,8 @@ import Color from '../constants/color';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.5);
-const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 0.7);
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.6);
+const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 0.6);
 
 
 const Slider = props => {
@@ -50,8 +50,9 @@ const Slider = props => {
             // onPress={()=> props.getDay()}
             >
                 <View style={[styles.slide, styles.shadow]}>
-                    {/* <Image></Image> */}
-                    <View style={{ paddingTop: 110 }}>
+                    <Text style={[styles.text, { paddingTop: 20, fontSize: 20 }]} >Mar</Text>
+                    <Text style={[styles.text, { paddingTop: 15, fontSize: 25 }]}>9</Text>
+                    <View style={{ paddingTop: 30 }}>
                         <Text style={styles.text}>{item.name}</Text>
                     </View>
                 </View>

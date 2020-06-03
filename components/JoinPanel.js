@@ -4,30 +4,23 @@ import BottomSheet from 'reanimated-bottom-sheet'
 import Color from '../constants/color';
 
 
-const DATA = [
-    {
-        title: "Main dishes",
-        data: ["Pizza", "Burger", "Risotto"]
-    },
-    {
-        title: "Sides",
-        data: ["French Fries", "Onion Rings", "Fried Shrimps"]
-    },
-    {
-        title: "Drinks",
-        data: ["Water", "Coke", "Beer"]
-    },
-    {
-        title: "Desserts",
-        data: ["Cheese Cake", "Ice Cream"]
-    }
-];
-
 export default class JoinPanel extends React.Component {
 
     bs = React.createRef()
 
-    state = { button: 'JOIN' };
+    hideBtn = (isDisabled) => {
+        if (isDisabled) {
+            this.bs.current.snapTo(3)
+        } else {
+            this.bs.current.snapTo(1)
+        }
+    }
+
+    state = {
+        button: 'JOIN',
+        hideBtn: this.props.isDisabled
+    };
+
     toggleBtn = () => {
         if (this.state.button == 'CONFIRM') {
             this.setState({ button: "JOIN" })
@@ -37,6 +30,9 @@ export default class JoinPanel extends React.Component {
             this.bs.current.snapTo(0)
         }
     }
+
+    method = () => this.bs.current.snapTo(3)
+
 
     _renderItem = ({ item }) => {
         <View>
@@ -50,12 +46,13 @@ export default class JoinPanel extends React.Component {
 
     renderInner = () => (
         <View style={styles.panel}>
-            <TouchableOpacity style={[styles.panelButton, styles.shadow]} onPress={this.toggleBtn}>
+            <TouchableOpacity
+                style={[styles.panelButton, styles.shadow]}
+                onPress={this.toggleBtn}>
                 <Text style={{ color: 'white', fontWeight: '700' }}>{this.state.button}</Text>
             </TouchableOpacity>
             <View style={styles.warning}>
-                <Text>Estimated Waiting Time: 30 minutes</Text>
-                <Text>Note: Our staff will be contacting your phone number as registered. Please arrive within 15 minutes of the call. Failing to do so may</Text>
+                <Text>Note: Our staff will be contacting your phone number as registered. Please arrive within 15 minutes of the call. Failing to do so may cause you to lose your allocated time slot.</Text>
             </View>
             <TouchableOpacity style={styles.cancel} onPress={this.toggleBtn}>
                 <Text style={{ color: Color.secondary }}>CANCEL</Text>
@@ -63,14 +60,13 @@ export default class JoinPanel extends React.Component {
         </View>
     )
 
-
     render() {
         return (
             <BottomSheet
                 ref={this.bs}
                 snapPoints={[300, 100, 100, 0]}
                 renderContent={this.renderInner}
-                initialSnap={2}
+                initialSnap={3}
                 enabledGestureInteraction={false}
             />
         )
@@ -169,4 +165,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4
     },
+    disabled: {
+        opacity: 0.6
+    }
 })

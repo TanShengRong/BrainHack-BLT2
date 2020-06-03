@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import { useHeaderHeight } from '@react-navigation/stack';
 import JoinPanel from '../components/JoinPanel'
@@ -10,6 +10,33 @@ const MAX_HEIGHT = 200;
 
 const Details = ({ navigation }) => {
 
+    const panelRef = useRef()
+    const [timeSlot, setTimeSlot] = useState()
+
+    const handleClick = (timing) => {
+        if (timeSlot == timing) {
+            setTimeSlot()
+            panelRef.current.hideBtn(true)
+        } else {
+            setTimeSlot(timing)
+            panelRef.current.hideBtn(false)
+        }
+    }
+
+    const timeslots = [
+        '09:00 - 10:00',
+        '10:00 - 11:00',
+        '11:00 - 12:00',
+        '12:00 - 13:00',
+        '13:00 - 14:00',
+        '14:00 - 15:00',
+        '15:00 - 16:00',
+        '16:00 - 17:00',
+        '17:00 - 18:00',
+        '18:00 - 19:00',
+        '19:00 - 20:00',
+        '20:00 - 21:00',
+    ]
 
     return (
         <View style={styles.screen}>
@@ -21,7 +48,7 @@ const Details = ({ navigation }) => {
                 fadeOutForeground
                 renderHeader={() => <Image source={require('../assets/gymboxx.jpg')} style={styles.image} />}
             >
-                <View style={{ height: 700 }}>
+                <View style={{ height: 1100 }}>
                     <TriggeringView>
                         <View style={[styles.card, styles.shadow]} >
                             <Text style={{ fontWeight: 'bold', fontSize: 25 }}>Capacity: 100%</Text>
@@ -40,9 +67,21 @@ const Details = ({ navigation }) => {
                         <Text style={styles.sectionHeader}>Available Days</Text>
                         <Slider />
                     </View>
+                    <View style={styles.section}>
+                        <Text style={styles.sectionHeader}>Available slots</Text>
+                        <View style={styles.timeslotContainer}>
+                            {timeslots.map(slot => (
+                                <TouchableOpacity onPress={() => handleClick(slot)}>
+                                    <View style={[styles.timeslot, { backgroundColor: (timeSlot === slot ? Color.primary : "white") }]}>
+                                        <Text style={{ fontWeight: "600" }}>{slot}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </View>
                 </View>
             </ HeaderImageScrollView>
-            <JoinPanel />
+            <JoinPanel ref={panelRef} />
         </View >
     )
 };
@@ -104,7 +143,22 @@ const styles = StyleSheet.create({
         height: 52,
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    timeslot: {
+        borderColor: Color.primary,
+        borderWidth: 2,
+        borderRadius: 10,
+        margin: 10,
+        padding: 15,
+        paddingHorizontal: 25
+    },
+    timeslotContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+    },
+
 });
 
 export default Details;
