@@ -18,7 +18,7 @@ export default function TodoItem({item, pressHandler, horizontal}){
                         borderTopLeftRadius:10,
                         borderTopRightRadius:10,}}
                         resizeMode='cover' 
-                        source={item.urilink}
+                        source={{uri:item.imageUrl}}
                     />
                 </View>
 
@@ -33,12 +33,12 @@ export default function TodoItem({item, pressHandler, horizontal}){
                     <Image
                         style={styles.tinyLogo}
                         resizeMode='cover'
-                        source={item.urilink}
+                        source={{uri:item.imageUrl}}
                     />
 
                     <View style={styles.item}>
                         <Text >{item.name}</Text>
-                        <Text >{item.operatingHrs}</Text>
+                        <Text >{item.startTime}</Text>
                         <Text>Occupancy:{item.currentOccupancy}/{item.maxCapacity}</Text>    
                     </View>
 
