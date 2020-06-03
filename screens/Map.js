@@ -10,7 +10,12 @@ import {
 } from 'react-native';
 
 import MapView, { Marker, ProviderPropType } from 'react-native-maps';
-import SandBoxTwo from '../components/sandboxtwo'
+import Sandboxtwo from '../components/sandboxtwo'
+import SandBoxNorth from '../components/sandboxnorth'
+import SandBoxSouth from '../components/sandboxsouth'
+import SandBoxEast from '../components/sandboxeast'
+import SandBoxWest from '../components/sandboxwest'
+import SandBoxCentral from '../components/sandboxcentral'
 import { getLocationDefaults, getLocationByRegion } from '../components/apifunctions'
 // import { API } from 'aws-amplify';
 //tmp to prevent warnings
@@ -39,6 +44,7 @@ class CustomMarkers extends React.Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
       items: [],
+      chosenR: '',
     };
   }
 
@@ -75,7 +81,25 @@ class CustomMarkers extends React.Component {
       />
     ))
   }
+
+  renderElement(){
+    if(this.state.chosenR === 'north')
+       {return <SandBoxNorth/>}
+    if(this.state.chosenR === 'south')
+        {return <SandBoxSouth/>}
+    if(this.state.chosenR === 'east')
+        {return <SandBoxEast/>}
+    if(this.state.chosenR === 'west')
+        {return <SandBoxWest/>}
+    if(this.state.chosenR === 'central')
+        {return <SandBoxCentral/>}
+    else {
+      return <Sandboxtwo/>
+    }
+  }
+
   render() {
+
     return (
       <View style={styles.container}>
         <MapView
@@ -93,47 +117,77 @@ class CustomMarkers extends React.Component {
 
         </MapView>
         <View style={styles.buttonContainer}>
-          <SandBoxTwo/>
+          { this.renderElement() }
         </View>
         <View style={styles.filterContainer}>
 
         <TouchableOpacity
-            onPress={() => this.updateMarkers('reset')}
+            onPress={() => 
+              {
+                this.updateMarkers('reset')
+                this.setState({ chosenR: 'all' });    
+              }
+            }
             style={[styles.bubble, styles.resetButton]}
           >
             <Text style={styles.resetButtonText}>R</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => this.updateMarkers('north')}
+            onPress={() => 
+              {
+                this.updateMarkers('north')
+                this.setState({ chosenR: 'north' });    
+              }
+            }
             style={[styles.bubble, styles.button]}
           >
             <Text style={styles.buttonText}>North</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => this.updateMarkers('south')}
+            onPress={() => 
+              {
+                this.updateMarkers('south')
+                this.setState({ chosenR: 'south' });    
+              }
+            }
             style={[styles.bubble, styles.button]}
           >
             <Text style={styles.buttonText}>South</Text>
           </TouchableOpacity> 
 
           <TouchableOpacity
-            onPress={() => this.updateMarkers('central')}
+            onPress={() => 
+              {
+                this.updateMarkers('central')
+                this.setState({ chosenR: 'central' });    
+              }
+            }
             style={[styles.bubble, styles.button]}
           >
             <Text style={styles.buttonText}>Central</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => this.updateMarkers('east')}
+            onPress={() => 
+              {
+                this.updateMarkers('east')
+                this.setState({ chosenR: 'east' });    
+              }
+            }
             style={[styles.bubble, styles.button]}
           >
             <Text style={styles.buttonText}>East</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => this.updateMarkers('west')}
+            onPress={() => 
+              {
+                this.updateMarkers('west')
+                this.setState({ chosenR: 'west' });    
+              }
+            }
             style={[styles.bubble, styles.button]}
           >
             <Text style={styles.buttonText}>West</Text>
