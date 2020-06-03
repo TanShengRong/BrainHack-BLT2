@@ -39,30 +39,19 @@ export default function Sandboxtwo(){
 }
 
 const styles= StyleSheet.create({
-    container:{
-        //flex:1,
-        flexDirection:'row',
-        //flexDirection:'row' will make items side by side instead 
-        justifyContent:'space-around',
-        //justifyContent:'center','spaceout','flex-end','space-between','space-around',
-        alignItems:'center',
-        //aglin the child alignItems:'center','end','start'
-        width:screenWidth/2.5,
-        backgroundColor:"#ddd",
+  listHorizontal:{
+      flex: 1,
+      // marginBottom:20,
+      // marginTop:100,
+      // borderWidth:3,
+      // borderColor:'red'
     },
-    listHorizontal:{
-        flex: 1,
-        marginBottom:20,
-        marginTop:100,
-        borderWidth:3,
-        borderColor:'red'
-
-      },
-      screen: {
-        paddingTop:40,
-        padding:20,
-        flex:1,
-        justifyContent:'flex-end',
-    },
- 
+    screen: {
+      paddingTop:10,
+      // padding:20,
+      flex:1,
+      justifyContent:'flex-end',
+      // borderWidth:3,
+      // borderColor:'blue'
+  },
 })
