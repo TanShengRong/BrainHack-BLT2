@@ -79,7 +79,7 @@ const Home = ({ navigation }) => {
       <View style={styles.input}>
         <View>
           <Text style={{fontWeight:'bold'}}> 
-              Hi {username}!
+              Hi !
           </Text>
           <Text style={{fontWeight:'bold'}}> 
               My Bookings
@@ -91,7 +91,7 @@ const Home = ({ navigation }) => {
           rounded
           title="MT"
           onPress={() => Alert.alert(
-            `Hi ${username}!`,
+            `Hi !`,
             "Do you want to logout?",
             [
               {
