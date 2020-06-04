@@ -66,6 +66,9 @@ const Home = ({ navigation }) => {
                       <TodoItem item={item} pressHandler={() => pressHandler(item)} horizontal={true} />
                     )}
                   />
+                  <Text style={{fontWeight:'bold'}}> 
+                          Currently Available
+                      </Text>
                 </View>
               </>
             }
@@ -73,6 +76,43 @@ const Home = ({ navigation }) => {
         )}
 
       </TouchableWithoutFeedback>
+      <View style={styles.input}>
+        <View>
+          <Text style={{fontWeight:'bold'}}> 
+              Hi {username}!
+          </Text>
+          <Text style={{fontWeight:'bold'}}> 
+              My Bookings
+          </Text>
+        </View>
+        
+          <Avatar
+          size="small"
+          rounded
+          title="MT"
+          onPress={() => Alert.alert(
+            `Hi ${username}!`,
+            "Do you want to logout?",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => {try {
+                  Auth.signOut()
+                // signout success
+              }
+                catch(e) {
+                    // signout failed
+              }} }
+            ],
+            { cancelable: false }
+          )}
+          activeOpacity={0.7}
+          source={{uri:'https://maxst.icons8.com/vue-static/icon/collection-favorites.png',}}
+          />
+        </View>
     </SafeAreaView>
   )
 };
@@ -83,13 +123,17 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1
   },
-
-
   listHorizontal: {
     flex: 1,
     marginBottom: 20,
   },
-
+  input:{
+        
+    borderBottomColor:"#ddd",
+    paddingHorizontal:8,
+    justifyContent:'space-between',
+    flexDirection:'row',
+  }
 });
 
 export default Home;
