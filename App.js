@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 // import { createSwitchNavigator, createAppContainer } from 'react-navigation';
-import AppIntroSlider from "react-native-app-intro-slider";
-import Welcome from "./screens/Welcome";
-import Login from "./screens/Login";
-import SafeEntry from "./screens/SafeEntry";
-import Color from "./constants/color";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import AppIntroSlider from 'react-native-app-intro-slider';
+import Welcome from './screens/Welcome'
+import Login from './screens/Login';
+import Color from './constants/color';
+import Card from './screens/Card';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Details from './screens/Details'
+import JoinPanel from './components/JoinPanel'
+import Test from './screens/Test'
 import Amplify from "aws-amplify";
 import aws_exports from "./config/aws-exports";
+import SafeEntry from './screens/SafeEntry'
 
 Amplify.configure(aws_exports);
 
@@ -19,18 +23,18 @@ var isLoggedIn = false;
 const slides = [
   {
     key: "1",
-    title: "First Slide",
-    text: "Here's the first slide.",
+    img: require("./assets/running.png"),
+    text: "Welcome to Safe Exercise!",
   },
   {
     key: "2",
-    title: "Second Slide",
-    text: "Here's the 2nd slide.",
+    img: require("./assets/muscle.png"),
+    text: "We know you've been waiting to go out to your favourite gyms and pools...",
   },
   {
     key: "3",
-    title: "Slide Three",
-    text: "Here's the third slide.",
+    img: require("./assets/woman.png"),
+    text: "Come check it out and book time slots!",
   },
 ];
 
@@ -40,7 +44,7 @@ export default function App() {
   const renderSlide = ({ item }) => {
     return (
       <View style={styles.slide}>
-        <Text style={styles.title}>{item.title}</Text>
+        <Image source={item.img} resizeMode='center' />
         <Text style={styles.desc}>{item.text}</Text>
       </View>
     );
@@ -83,11 +87,10 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
     alignItems: "center",
     justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
+    paddingHorizontal: 50
   },
   desc: {
-    fontSize: 15,
+    fontSize: 25,
+    fontWeight: '600'
   },
 });
