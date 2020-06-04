@@ -8,13 +8,19 @@ import {
   Alert,
   OverlayComponent
 } from 'react-native';
+import Color from '../constants/color';
 
 import MapView, { Marker, ProviderPropType } from 'react-native-maps';
-import SandBoxTwo from '../components/sandboxtwo'
-import { getLocationDefaults } from '../components/apifunctions'
-import { API } from 'aws-amplify';
+import Sandboxtwo from '../components/sandboxtwo'
+import SandBoxNorth from '../components/sandboxnorth'
+import SandBoxSouth from '../components/sandboxsouth'
+import SandBoxEast from '../components/sandboxeast'
+import SandBoxWest from '../components/sandboxwest'
+import SandBoxCentral from '../components/sandboxcentral'
+import { getLocationDefaults, getLocationByRegion } from '../components/apifunctions'
+// import { API } from 'aws-amplify';
 //tmp to prevent warnings
-// console.disableYellowBox = true;
+console.disableYellowBox = true;
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -38,104 +44,58 @@ class CustomMarkers extends React.Component {
         latitudeDelta: 0.6022,
         longitudeDelta: LONGITUDE_DELTA,
       },
-      items: []
-    //   markers: [
-    //     {
-    //         coordinate: {
-    //         latitude: 1.367240,
-    //         longitude: 103.840420,
-    //         },
-    //         key: id++,
-    //         title: 'YCK Gym',
-    //         description: 'Crowd level is HIGH',
-    //     },
-    //     {
-    //         coordinate: {
-    //             latitude: 1.382342,
-    //             longitude: 103.846085,
-    //         },
-    //         key: id++,
-    //         title: 'AMK Gym',
-    //         description: 'Crowd level is LOW',
-    //     },
-    //     {
-    //         coordinate: {
-    //             latitude: 1.352128,
-    //             longitude: 103.872122,
-    //         },
-    //         key: id++,
-    //         title: 'Serangoon Gym',
-    //         description: 'Crowd level is HIGH',
-    //     },
-    //     {
-    //         coordinate: {
-    //             latitude: 1.355957,
-    //             longitude: 103.874901,
-    //         },
-    //         key: id++,
-    //         title: 'Serangoon Stadium',
-    //         description: 'Crowd level is LOW',
-    //     },
-    //   ],
+      items: [],
+      chosenR: '',
     };
   }
 
   async componentDidMount() {
     console.log('Component did mount');
     const APIDATA = await getLocationDefaults();
-    console.log(typeof(APIDATA) === 'object');
-    console.log(APIDATA.items[0]);
+    // console.log(typeof(APIDATA) === 'object');
+    // console.log(APIDATA.items[0]);
+
     this.setState({ items: APIDATA.items });
   }
-  animateRandom(reg) {
-    this.map.animateToRegion(this.randomRegion(reg));
-  }
-  randomRegion(reg) {
-    return {
-      ...this.state.region,
-      ...this.randomCoordinate(reg),
-    };
-  }
-  randomCoordinate(reg) {
-    const region = this.state.region;
-    let lat = 0, long=0;
-    switch (reg) {
-        case 'amk':
-            lat = 1.382342;
-            long = 103.846085;
-            break;
-        case 'sr': 
-            lat = 1.352128;
-            long = 103.872122;
-            break;
+
+  async updateMarkers(reg) {
+    // const APIDATA = await getLocationByRegion(reg);
+    if (reg === 'reset') {
+      const APIDATA = await getLocationDefaults();
+      this.setState({ items: APIDATA.items });
     }
-    return {
-      latitude:
-        // region.latitude + (Math.random() - 0.5) * (region.latitudeDelta / 2),
-        lat,
-      longitude:
-        // region.longitude + (Math.random() - 0.5) * (region.longitudeDelta / 2),
-        long,
-    latitudeDelta: 
-        LATITUDE_DELTA,
-    longitudeDelta: 
-        LONGITUDE_DELTA,
-    };
+    else {
+      const APIDATA = await getLocationByRegion(reg);
+      this.setState({ items: APIDATA.items });
+    }
   }
-    mapMarkers = () => {
+  mapMarkers = () => {
     return this.state.items.map(item => (
-        <Marker
-          title={item.name}
-          key={item.locationId}
-          coordinate={{
-            latitude: parseFloat(item.lat),
-            longitude: parseFloat(item.lon)
-          }}
-          description={item.address}
-        />
-      ))
+      <Marker
+        title={item.name}
+        key={item.locationId}
+        coordinate={{
+          latitude: parseFloat(item.lat),
+          longitude: parseFloat(item.lon)
+        }}
+        description={item.address}
+      />
+    ))
+  }
+
+  renderElement() {
+    if (this.state.chosenR === 'north') { return <SandBoxNorth /> }
+    if (this.state.chosenR === 'south') { return <SandBoxSouth /> }
+    if (this.state.chosenR === 'east') { return <SandBoxEast /> }
+    if (this.state.chosenR === 'west') { return <SandBoxWest /> }
+    if (this.state.chosenR === 'central') { return <SandBoxCentral /> }
+    else {
+      return <Sandboxtwo />
     }
+  }
+
   render() {
+
     return (
       <View style={styles.container}>
         <MapView
@@ -149,37 +109,82 @@ class CustomMarkers extends React.Component {
           followUserLocation={true}
         >
 
-        {this.mapMarkers()}
+          {this.mapMarkers()}
 
         </MapView>
         <View style={styles.buttonContainer}>
-          <SandBoxTwo/>
+          {this.renderElement()}
+        </View>
+        <View style={styles.filterContainer}>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.updateMarkers('reset')
+              this.setState({ chosenR: 'all' });
+            }
+            }
+            style={[styles.bubble, styles.resetButton]}
+          >
+            <Text style={styles.resetButtonText}>R</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.updateMarkers('north')
+              this.setState({ chosenR: 'north' });
+            }
+            }
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>North</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.updateMarkers('south')
+              this.setState({ chosenR: 'south' });
+            }
+            }
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>South</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.updateMarkers('central')
+              this.setState({ chosenR: 'central' });
+            }
+            }
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>Central</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.updateMarkers('east')
+              this.setState({ chosenR: 'east' });
+            }
+            }
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>East</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.updateMarkers('west')
+              this.setState({ chosenR: 'west' });
+            }
+            }
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>West</Text>
+          </TouchableOpacity>
+
         </View>
       </View>
-        // {/* <View style={styles.buttonContainer}> */}
-        //   {/* <SandBoxTwo/> */}
-        //   {/* <Text>HELLLLLLLLOOOOOOO</Text> */}
-
-        //   {/* <TouchableOpacity
-        //     onPress={() => this.setState({ markers: [] })}
-        //     style={styles.bubble}
-        //   >
-        //     <Text>Tap refresh current location</Text>
-        //   </TouchableOpacity> */}
-
-        //   {/* <TouchableOpacity
-        //     onPress={() => this.animateRandom('amk')}
-        //     style={[styles.bubble, styles.button]}
-        //   >
-        //     <Text style={styles.buttonText}>North Region</Text>
-        //   </TouchableOpacity>
-
-        //   <TouchableOpacity
-        //     onPress={() => this.animateRandom('sr')}
-        //     style={[styles.bubble, styles.button]}
-        //   >
-        //     <Text style={styles.buttonText}>South Region</Text>
-        //   </TouchableOpacity> */}
     );
   }
 }
@@ -198,41 +203,55 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   bubble: {
+    minWidth: 70,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: Color.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
     paddingVertical: 12,
-    borderRadius: 20,
   },
   buttonText: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   latlng: {
     width: 200,
     alignItems: 'stretch',
   },
-  button: {
-    width: 80,
+  resetButton: {
+    width: 40,
     paddingHorizontal: 12,
     alignItems: 'center',
-    marginHorizontal: 10,
+    backgroundColor: 'white'
   },
-//   buttonContainer: {
-//     flexDirection: 'row',
-//     marginVertical: 20,
-//     backgroundColor: 'transparent',
-//   },
+  resetButtonText: {
+    color: 'red',
+    textAlign: 'center',
+  },
+  button: {
+    width: 70,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    backgroundColor: 'white'
+  },
   buttonContainer: {
     flexDirection: 'row',
     backgroundColor: 'transparent',
-    marginTop:screenHeight*3/5,
-    width:screenWidth,
-    flex:1,
-    borderWidth:3,
-    borderColor:'transparent'
+    marginTop: screenHeight * 3 / 5,
+    width: screenWidth,
+    flex: 1,
+    borderWidth: 3,
+    borderColor: 'transparent'
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    flex: 0.25,
   },
   overlayComponent: {
     position: "absolute",
-     bottom: 50,
+    bottom: 50,
   },
 });
 
