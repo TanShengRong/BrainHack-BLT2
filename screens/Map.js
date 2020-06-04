@@ -8,6 +8,7 @@ import {
   Alert,
   OverlayComponent
 } from 'react-native';
+import Color from '../constants/color';
 
 import MapView, { Marker, ProviderPropType } from 'react-native-maps';
 import Sandboxtwo from '../components/sandboxtwo'
@@ -54,14 +55,14 @@ class CustomMarkers extends React.Component {
     // console.log(typeof(APIDATA) === 'object');
     // console.log(APIDATA.items[0]);
 
-    this.setState({ items: APIDATA.items });    
+    this.setState({ items: APIDATA.items });
   }
 
   async updateMarkers(reg) {
     // const APIDATA = await getLocationByRegion(reg);
     if (reg === 'reset') {
       const APIDATA = await getLocationDefaults();
-      this.setState({ items: APIDATA.items });    
+      this.setState({ items: APIDATA.items });
     }
     else {
       const APIDATA = await getLocationByRegion(reg);
@@ -69,7 +70,7 @@ class CustomMarkers extends React.Component {
     }
   }
   mapMarkers = () => {
-  return this.state.items.map(item => (
+    return this.state.items.map(item => (
       <Marker
         title={item.name}
         key={item.locationId}
@@ -82,19 +83,14 @@ class CustomMarkers extends React.Component {
     ))
   }
 
-  renderElement(){
-    if(this.state.chosenR === 'north')
-       {return <SandBoxNorth/>}
-    if(this.state.chosenR === 'south')
-        {return <SandBoxSouth/>}
-    if(this.state.chosenR === 'east')
-        {return <SandBoxEast/>}
-    if(this.state.chosenR === 'west')
-        {return <SandBoxWest/>}
-    if(this.state.chosenR === 'central')
-        {return <SandBoxCentral/>}
+  renderElement() {
+    if (this.state.chosenR === 'north') { return <SandBoxNorth /> }
+    if (this.state.chosenR === 'south') { return <SandBoxSouth /> }
+    if (this.state.chosenR === 'east') { return <SandBoxEast /> }
+    if (this.state.chosenR === 'west') { return <SandBoxWest /> }
+    if (this.state.chosenR === 'central') { return <SandBoxCentral /> }
     else {
-      return <Sandboxtwo/>
+      return <Sandboxtwo />
     }
   }
 
@@ -113,20 +109,19 @@ class CustomMarkers extends React.Component {
           followUserLocation={true}
         >
 
-        {this.mapMarkers()}
+          {this.mapMarkers()}
 
         </MapView>
         <View style={styles.buttonContainer}>
-          { this.renderElement() }
+          {this.renderElement()}
         </View>
         <View style={styles.filterContainer}>
 
-        <TouchableOpacity
-            onPress={() => 
-              {
-                this.updateMarkers('reset')
-                this.setState({ chosenR: 'all' });    
-              }
+          <TouchableOpacity
+            onPress={() => {
+              this.updateMarkers('reset')
+              this.setState({ chosenR: 'all' });
+            }
             }
             style={[styles.bubble, styles.resetButton]}
           >
@@ -134,11 +129,10 @@ class CustomMarkers extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => 
-              {
-                this.updateMarkers('north')
-                this.setState({ chosenR: 'north' });    
-              }
+            onPress={() => {
+              this.updateMarkers('north')
+              this.setState({ chosenR: 'north' });
+            }
             }
             style={[styles.bubble, styles.button]}
           >
@@ -146,23 +140,21 @@ class CustomMarkers extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => 
-              {
-                this.updateMarkers('south')
-                this.setState({ chosenR: 'south' });    
-              }
+            onPress={() => {
+              this.updateMarkers('south')
+              this.setState({ chosenR: 'south' });
+            }
             }
             style={[styles.bubble, styles.button]}
           >
             <Text style={styles.buttonText}>South</Text>
-          </TouchableOpacity> 
+          </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => 
-              {
-                this.updateMarkers('central')
-                this.setState({ chosenR: 'central' });    
-              }
+            onPress={() => {
+              this.updateMarkers('central')
+              this.setState({ chosenR: 'central' });
+            }
             }
             style={[styles.bubble, styles.button]}
           >
@@ -170,11 +162,10 @@ class CustomMarkers extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => 
-              {
-                this.updateMarkers('east')
-                this.setState({ chosenR: 'east' });    
-              }
+            onPress={() => {
+              this.updateMarkers('east')
+              this.setState({ chosenR: 'east' });
+            }
             }
             style={[styles.bubble, styles.button]}
           >
@@ -182,11 +173,10 @@ class CustomMarkers extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => 
-              {
-                this.updateMarkers('west')
-                this.setState({ chosenR: 'west' });    
-              }
+            onPress={() => {
+              this.updateMarkers('west')
+              this.setState({ chosenR: 'west' });
+            }
             }
             style={[styles.bubble, styles.button]}
           >
@@ -213,13 +203,17 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   bubble: {
+    minWidth: 70,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: Color.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
     paddingVertical: 12,
-    borderRadius: 20,
   },
   buttonText: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   latlng: {
     width: 200,
@@ -244,20 +238,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     backgroundColor: 'transparent',
-    marginTop:screenHeight*3/5,
-    width:screenWidth,
-    flex:1,
-    borderWidth:3,
-    borderColor:'transparent'
+    marginTop: screenHeight * 3 / 5,
+    width: screenWidth,
+    flex: 1,
+    borderWidth: 3,
+    borderColor: 'transparent'
   },
   filterContainer: {
     flexDirection: 'row',
     backgroundColor: 'transparent',
-    flex:0.25,
+    flex: 0.25,
   },
   overlayComponent: {
     position: "absolute",
-     bottom: 50,
+    bottom: 50,
   },
 });
 
